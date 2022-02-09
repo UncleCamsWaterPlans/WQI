@@ -4,7 +4,7 @@
 #APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
 
-
+#' @export
 EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
   #START -- number of days to lookback
@@ -23,7 +23,7 @@ EIO_Hist <- function(APIKEY, param, START) {
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+#' @export
 EIO_Comms <- function(APIKEY, param) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
 
@@ -38,7 +38,7 @@ EIO_Comms <- function(APIKEY, param) {
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+#' @export
 EIO_Node <- function(APIKEY, param) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
 

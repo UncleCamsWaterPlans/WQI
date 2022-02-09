@@ -41,6 +41,7 @@
 # write.csv(cityList, file = "Data/cityList.csv")
 
 #////////////////////////////////////////////
+#' @export
 OpenWeather <- function(City, time, APIKEY){
 cityList <- read.csv("Data/cityList.csv")
 lat <- as.numeric(cityList %>%

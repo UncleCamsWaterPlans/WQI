@@ -7,7 +7,7 @@
 #Vfrom == refers to parameter codes (100.00 = level)
 #Vto == allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 [level] , Vto = 140.00 [discharge])
 #START == date* to lookback to. format = YYYYMMDD
-
+#' @export
 WMIP_Extract <- function(WMIPID, Vfrom, Vto, START){
   END <- format(Sys.Date() + 1, "%Y%m%d")
   WMIP_URL <- paste("https://water-monitoring.information.qld.gov.au/cgi/webservice.pl?function=get_ts_traces&site_list=",WMIPID,"&datasource=AT&varfrom=",Vfrom,"&varto=",Vto,"&start_time=",START,"&end_time=",END,"&data_type=mean&interval=hour&multiplier=1&format=csv")
