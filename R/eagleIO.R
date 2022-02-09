@@ -1,28 +1,51 @@
-#functions for extracting data from WQI's eagle.IO instance
+#' Functions for extracting historic data from WQI's eagle.IO instance
 
-#requires:
-#APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
-#param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#' @param START == number of days to lookback
+#' @return tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
 
 #' @export
 EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
-  #START -- number of days to lookback
-
   START <- Sys.Date() - START
   END <- Sys.Date() + 1
   URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,sep = "")
 
   #API call GET
   APIData <- httr::GET(URLData,
-                       add_headers('X-Api-Key' = APIKEY,
+                       httr::add_headers('X-Api-Key' = APIKEY,
                                    'Content-Type' = "application/json"))
   Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
 
-  return(Node_content[["data"]])
+  Data<- dplyr::tibble(ts = Node_content[["data"]][["ts"]])
+  Data$ts<-as.POSIXct(Data$ts, format="%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  attr(Data$ts, "tzone") <- "Australia/Brisbane"
+
+  Data <- Data %>% tibble::add_column("Value" = NA,
+                                      "Quality" = NA)
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$Value <- Node_content[["data"]][["f"]][["0"]][["v"]]
+  } else ""
+  if ("q" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$Quality <- Node_content[["data"]][["f"]][["0"]][["q"]]
+  } else ""
+
+  return(Data)
 }
 
+# example ::
+#content <- EIO_Hist(APIKEY = "R70p9hO2eAenXNcawRit4bcTyGDISEAWrFG8gL01", param = "5903e538bd10c2fa0ce50648", START = 1)
+
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' Functions for extracting comms data from WQI's eagle.IO instance
+
+#' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#' @return data frame containing returned comms data
 #' @export
 EIO_Comms <- function(APIKEY, param) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
@@ -38,6 +61,12 @@ EIO_Comms <- function(APIKEY, param) {
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' Functions for extracting node data from WQI's eagle.IO instance
+
+#' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#' @return data frame containing returned node data
 #' @export
 EIO_Node <- function(APIKEY, param) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)

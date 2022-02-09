@@ -1,12 +1,13 @@
-#extracts data from the Water Monitoring Information Portal (WMIP)
-# website: https://water-monitoring.information.qld.gov.au/
+#' Extracts data from the Water Monitoring Information Portal (WMIP)
+#' Website: https://water-monitoring.information.qld.gov.au/
 
-#requires:
-#WMIPID == a Gauging station number
+#' @param WMIPID == a Gauging station number
+#' @param Vfrom == refers to parameter codes (100.00 = level)
+#' @param Vto == allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 [level] , Vto = 140.00 [discharge])
+#' @param START == date* to lookback to. format = YYYYMMDD
+#'
+#' @return a data frame containing extracted WMIP data for specified gauging station/parameter.
 
-#Vfrom == refers to parameter codes (100.00 = level)
-#Vto == allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 [level] , Vto = 140.00 [discharge])
-#START == date* to lookback to. format = YYYYMMDD
 #' @export
 WMIP_Extract <- function(WMIPID, Vfrom, Vto, START){
   END <- format(Sys.Date() + 1, "%Y%m%d")
