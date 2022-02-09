@@ -13,8 +13,7 @@ Description: This package is intended on facilitating data extraction and from v
     httr,
     jsonlite,
     readr,
-    dplyr,
-    
+    dplyr
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
