@@ -33,8 +33,7 @@ OpenWeather(City, time, APIKEY)
 \arguments{
 \item{City}{== the City as displayed in the cityList file extracted from the website}
 
-\item{time}{== UNIX time for a given day. Free tier only supports the last 5 days
-importFrom magrittr "\%>\%"}
+\item{time}{== UNIX time for a given day. Free tier only supports the last 5 days}
 
 \item{APIKEY}{== given from the free tier account for OpenWeather}
 }

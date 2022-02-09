@@ -12,7 +12,7 @@ WMIP_Extract(WMIPID, Vfrom, Vto, START)
 
 \item{Vfrom}{== refers to parameter codes (100.00 = level)}
 
-\item{Vto}{== allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 \link{level} , Vto = 140.00 \link{discharge})}
+\item{Vto}{== allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)}
 
 \item{START}{== date* to lookback to. format = YYYYMMDD}
 }

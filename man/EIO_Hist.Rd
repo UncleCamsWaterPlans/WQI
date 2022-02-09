@@ -14,7 +14,7 @@ EIO_Hist(APIKEY, param, START)
 \item{START}{== number of days to lookback}
 }
 \value{
-data frame containing returned historic data
+tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
 }
 \description{
 Functions for extracting historic data from WQI's eagle.IO instance

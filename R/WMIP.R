@@ -3,7 +3,7 @@
 
 #' @param WMIPID == a Gauging station number
 #' @param Vfrom == refers to parameter codes (100.00 = level)
-#' @param Vto == allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 [level] , Vto = 140.00 [discharge])
+#' @param Vto == allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)
 #' @param START == date* to lookback to. format = YYYYMMDD
 #'
 #' @return a data frame containing extracted WMIP data for specified gauging station/parameter.

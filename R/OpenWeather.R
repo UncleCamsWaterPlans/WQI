@@ -29,28 +29,24 @@
 #' @param City == the City as displayed in the cityList file extracted from the website
 #' @param APIKEY == given from the free tier account for OpenWeather
 #' @param time == UNIX time for a given day. Free tier only supports the last 5 days
-#' importFrom magrittr "%>%"
+#' @importFrom magrittr "%>%"
+#' @importFrom rlang .data
+
 
 #' @return data frame containing weather observation data from given city. Time as "Australia/Brisbane" (UTC+10)
-
-
-#Extracting the city list file provided through the website:
-# gunzip("Data/city.list.json.gz")
-# cityList <- jsonlite::fromJSON(txt = "Data/city.list.json", flatten=TRUE)
-# write.csv(cityList, file = "Data/cityList.csv")
-#cityList <- read.csv("Data/cityList.csv")
 
 
 #' @export
 
 OpenWeather <- function(City, time, APIKEY){
+cityList <- cityList
 lat <- as.numeric(cityList %>%
-                    dplyr::filter(name == City & country == "AU") %>%
-                    dplyr::select(coord.lat))
+                    dplyr::filter(.data$name == City & .data$country == "AU") %>%
+                    dplyr::select(.data$coord.lat))
 
 lon <- as.numeric(cityList %>%
-                    dplyr::filter(name == City & country == "AU") %>%
-                    dplyr::select(coord.lon))
+                    dplyr::filter(.data$name == City & .data$country == "AU") %>%
+                    dplyr::select(.data$coord.lon))
 
 URL <- paste("https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=",lat,"&lon=",lon,"&dt=",time,"&appid=",APIKEY, sep = "")
 API <- httr::GET(URL)

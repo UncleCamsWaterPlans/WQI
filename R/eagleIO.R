@@ -18,7 +18,7 @@ EIO_Hist <- function(APIKEY, param, START) {
                                    'Content-Type' = "application/json"))
   Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
 
-  Data<- dplyr::tibble(ts = Node_content[["data"]][["ts"]])
+  Data<- tibble::tibble(ts = Node_content[["data"]][["ts"]])
   Data$ts<-as.POSIXct(Data$ts, format="%Y-%m-%dT%H:%M:%S", tz = "UTC")
   attr(Data$ts, "tzone") <- "Australia/Brisbane"
 
@@ -34,7 +34,7 @@ EIO_Hist <- function(APIKEY, param, START) {
   return(Data)
 }
 
-# example ::
+# example
 #content <- EIO_Hist(APIKEY = "R70p9hO2eAenXNcawRit4bcTyGDISEAWrFG8gL01", param = "5903e538bd10c2fa0ce50648", START = 1)
 
 
@@ -53,7 +53,7 @@ EIO_Comms <- function(APIKEY, param) {
   URLData <- paste("https://api.eagle.io/api/v1/nodes/?attr=currentStatus,lastCommsSuccess&filter=_id($eq:",param,")",sep="")
   #API call GET
   APIData <- httr::GET(URLData,
-                       add_headers('X-Api-Key' = APIKEY,
+                       httr::add_headers('X-Api-Key' = APIKEY,
                                    'Content-Type' = "application/json"))
   Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
 
@@ -74,7 +74,7 @@ EIO_Node <- function(APIKEY, param) {
   URLData <- paste("https://api.eagle.io/api/v1/nodes/?attr=currentValue&filter=_id($eq:",param,")",sep="")
   #API call GET
   APIData <- httr::GET(URLData,
-                       add_headers('X-Api-Key' = APIKEY,
+                       httr::add_headers('X-Api-Key' = APIKEY,
                                    'Content-Type' = "application/json"))
   Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
 
