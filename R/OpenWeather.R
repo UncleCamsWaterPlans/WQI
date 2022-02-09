@@ -38,7 +38,7 @@
 #' @importFrom rlang .data
 #'
 #' @examples
-#' `dat <- OpenWeather(City = "Ayr", time = (as.integer(Sys.time())), APIKEY = "6ec4d71e6dff80bfd53c2ead82f20ef4")`
+#' #dat <- OpenWeather(City = "Ayr", time = (as.integer(Sys.time())), APIKEY = "XYZ")
 #'
 #' @return data frame containing weather observation data from given city. Time as "Australia/Brisbane" (UTC+10)
 #'

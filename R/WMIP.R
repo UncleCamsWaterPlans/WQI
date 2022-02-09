@@ -11,7 +11,7 @@
 #' @param START Date* to lookback to. Format = "YYYYMMDD"
 #'
 #' @examples
-#' `df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")`
+#' #df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")
 #'
 #'
 #' @return A data frame containing extracted WMIP data for specified gauging station/parameter.

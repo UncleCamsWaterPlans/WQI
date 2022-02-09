@@ -9,7 +9,7 @@
 #' @param START Number of days to lookback
 #'
 #' @examples
-#' `content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)`
+#' #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
 #'
 #' @return tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
 #'
@@ -85,7 +85,7 @@ EIO_Comms <- function(APIKEY, param) {
 #' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
 #'
 #' @examples
-#' `content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")`
+#' #content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")
 #'
 #' @return data frame containing returned node data
 #' @export
