@@ -10,7 +10,8 @@
 #' @param Vto Allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)
 #' @param START Date* to lookback to. Format = "YYYYMMDD"
 #'
-#' @example df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")
+#' @examples
+#' `df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")`
 #'
 #'
 #' @return A data frame containing extracted WMIP data for specified gauging station/parameter.

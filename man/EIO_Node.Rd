@@ -2,7 +2,10 @@
 % Please edit documentation in R/eagleIO.R
 \name{EIO_Node}
 \alias{EIO_Node}
-\title{Functions for extracting node data from WQI's eagle.IO instance}
+\title{Extract node data from WQI's eagle.IO instance}
+\source{
+url{https://wqi.eagle.io/}
+}
 \usage{
 EIO_Node(APIKEY, param)
 }
@@ -15,5 +18,9 @@ EIO_Node(APIKEY, param)
 data frame containing returned node data
 }
 \description{
-Functions for extracting node data from WQI's eagle.IO instance
+Will extract the current value for a given NODE ID from WQI's eagle.IO instance.
+}
+\examples{
+`content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")`
+
 }

@@ -2,7 +2,10 @@
 % Please edit documentation in R/eagleIO.R
 \name{EIO_Comms}
 \alias{EIO_Comms}
-\title{Functions for extracting comms data from WQI's eagle.IO instance}
+\title{Extract communications information for a given logger source}
+\source{
+url{https://wqi.eagle.io/}
+}
 \usage{
 EIO_Comms(APIKEY, param)
 }
@@ -15,5 +18,5 @@ EIO_Comms(APIKEY, param)
 data frame containing returned comms data
 }
 \description{
-Functions for extracting comms data from WQI's eagle.IO instance
+Function for extracting comms data from WQI's eagle.IO instance. Requires a node ID for a DATA SOURCE that has connection status information to return (ie. Campbell pakbus logger)
 }

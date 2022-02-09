@@ -2,20 +2,27 @@
 % Please edit documentation in R/eagleIO.R
 \name{EIO_Hist}
 \alias{EIO_Hist}
-\title{Functions for extracting historic data from WQI's eagle.IO instance}
+\title{Extract historic data from WQI's eagle.IO instance}
+\source{
+url{https://wqi.eagle.io/}
+}
 \usage{
 EIO_Hist(APIKEY, param, START)
 }
 \arguments{
-\item{APIKEY}{== This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance}
+\item{APIKEY}{This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance}
 
-\item{param}{== a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data}
+\item{param}{A node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data (ie level/N-NO3/Turbidity).}
 
-\item{START}{== number of days to lookback}
+\item{START}{Number of days to lookback}
 }
 \value{
 tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
 }
 \description{
-Functions for extracting historic data from WQI's eagle.IO instance
+Function for extracting historic data from WQI's eagle.IO instance. Requires a node ID that has connection status information to return (ie. Campbell pakbus logger)
+}
+\examples{
+`content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)`
+
 }

@@ -2,24 +2,30 @@
 % Please edit documentation in R/WMIP.R
 \name{WMIP_Extract}
 \alias{WMIP_Extract}
-\title{Extracts data from the Water Monitoring Information Portal (WMIP)
-Website: https://water-monitoring.information.qld.gov.au/}
+\title{Data extraction from the Water Monitoring Information portal}
+\source{
+url{https://water-monitoring.information.qld.gov.au/}
+}
 \usage{
 WMIP_Extract(WMIPID, Vfrom, Vto, START)
 }
 \arguments{
-\item{WMIPID}{== a Gauging station number}
+\item{WMIPID}{A gauging station number as defined in the WMIP platform.}
 
-\item{Vfrom}{== refers to parameter codes (100.00 = level)}
+\item{Vfrom}{Refers to parameter codes (100.00 = level)}
 
-\item{Vto}{== allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)}
+\item{Vto}{Allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)}
 
-\item{START}{== date* to lookback to. format = YYYYMMDD}
+\item{START}{Date* to lookback to. Format = "YYYYMMDD"}
 }
 \value{
-a data frame containing extracted WMIP data for specified gauging station/parameter.
+A data frame containing extracted WMIP data for specified gauging station/parameter.
 }
 \description{
-Extracts data from the Water Monitoring Information Portal (WMIP)
-Website: https://water-monitoring.information.qld.gov.au/
+Extracts data from the Water Monitoring Information Portal (WMIP). This platform is the front end of DRDMW's Hydstra database. It contains river level, discharge, water quality and rainfall data to lsit a few. What is available for each gauging station can be seen in the WMIP platform. This should be used to determine what parameter codes can be extracted in this funciton.
+}
+\examples{
+`df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")`
+
+
 }
