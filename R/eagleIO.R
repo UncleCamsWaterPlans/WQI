@@ -1,11 +1,19 @@
-#' Functions for extracting historic data from WQI's eagle.IO instance
-
-#' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
-#' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
-#' @param START == number of days to lookback
+#' @title Extract historic data from WQI's eagle.IO instance
+#'
+#' @description Function for extracting historic data from WQI's eagle.IO instance. Requires a node ID that has connection status information to return (ie. Campbell pakbus logger)
+#'
+#' @source url{https://wqi.eagle.io/}
+#'
+#' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param param A node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data (ie level/N-NO3/Turbidity).
+#' @param START Number of days to lookback
+#'
+#' @example content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
+#'
 #' @return tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
-
+#'
 #' @export
+#'
 EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
   START <- Sys.Date() - START
@@ -34,17 +42,19 @@ EIO_Hist <- function(APIKEY, param, START) {
   return(Data)
 }
 
-# example
-#content <- EIO_Hist(APIKEY = "R70p9hO2eAenXNcawRit4bcTyGDISEAWrFG8gL01", param = "5903e538bd10c2fa0ce50648", START = 1)
 
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#' Functions for extracting comms data from WQI's eagle.IO instance
-
+#' @title Extract communications information for a given logger source
+#'
+#' @description Function for extracting comms data from WQI's eagle.IO instance. Requires a node ID for a DATA SOURCE that has connection status information to return (ie. Campbell pakbus logger)
+#'
+#' @source url{https://wqi.eagle.io/}
+#'
 #' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#'
 #' @return data frame containing returned comms data
 #' @export
 EIO_Comms <- function(APIKEY, param) {
@@ -60,14 +70,24 @@ EIO_Comms <- function(APIKEY, param) {
   return(Node_content)
 }
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#' Functions for extracting node data from WQI's eagle.IO instance
 
+
+
+#' @title Extract node data from WQI's eagle.IO instance
+#'
+#' @description Will extract the current value for a given NODE ID from WQI's eagle.IO instance.
+#'
+#' @source url{https://wqi.eagle.io/}
+#'
 #' @param APIKEY == This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #' @param param == a node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data
+#'
+#' @example content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")
+#'
 #' @return data frame containing returned node data
 #' @export
+#'
 EIO_Node <- function(APIKEY, param) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
 
@@ -83,4 +103,4 @@ EIO_Node <- function(APIKEY, param) {
 
 
 
-# example ::  content <- EIO_Node(APIKEY = "R70p9hO2eAenXNcawRit4bcTyGDISEAWrFG8gL01", param = "59cca1064f2ee90c99b94b2e")
+
