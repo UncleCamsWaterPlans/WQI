@@ -1,0 +1,22 @@
+Package: WQI
+Title: Data Extraction From Various Platforms
+Version: 0.0.0.9000
+Authors@R: 
+    person("Cameron", "Roberts", , "cameron.roberts@des.qld.gov.au", role = c("Technical Scientist"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package is intended on facilitating data extraction and from various platforms used by the WQI team:
+ - Eagle.IO
+ - WMIP
+ - OpenWeather
+ - BoM.
+ Imports:
+    httr,
+    jsonlite,
+    readr,
+    dplyr,
+    
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
