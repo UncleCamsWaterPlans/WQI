@@ -3,7 +3,7 @@
 \docType{data}
 \name{cityList}
 \alias{cityList}
-\title{Prices of 50,000 round cut diamonds.}
+\title{List of available 'cities' with weather data through OpenWeather.org}
 \format{
 a data frame containing 209579 obs. of  6 variables
 \describe{
@@ -22,7 +22,6 @@ a data frame containing 209579 obs. of  6 variables
 cityList
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds.
+List of available 'cities' with weather data through OpenWeather.org
 }
 \keyword{datasets}
