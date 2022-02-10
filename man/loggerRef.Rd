@@ -3,45 +3,45 @@
 \docType{data}
 \name{loggerRef}
 \alias{loggerRef}
-\title{Reference table for all of WQI's location sources with Logger data}
+\title{Reference table for all of WQI's location sources with Logger data
+Provides Node ID's for available real time parameters}
 \format{
 a data frame containing 134 obs. of  56 variables
 \describe{
-\item{_id}
-\item{GSnum}
-\item{name}
-\item{loggerID}
-\item{Main - Level}
-\item{OPUSResults - OPUS1000 N NO3}
-\item{OPUSResults - OPUS1036 Abs210}
-\item{Nitrate - NICO RefA}
-\item{OPUSResults - OPUS1042 Abs254}
-\item{Nitrate - NICO RefB}
-\item{OPUSResults - OPUS1034 Abs360}
-\item{Nitrate - NICO RefC}
-\item{Nitrate - NICO RefD}
-\item{OPUSResults - OPUS1060 SQI}
-\item{OPUSResults - OPUS1016 TSSeq}
-\item{Public - RSSI}
-\item{Resets - WDE}
-\item{Public - OPUS Serial}
-\item{Public - SondePresent}
-\item{Public - NitratePresent}
-\item{Public - ADCPPresent}
-\item{Main - LoggerBattV Min}
-\item{Main - PestFrV Min}
-\item{Main - PumpBattV Min}
-\item{Public - SamplerOnOff}
-\item{Public - SamplerState}
-\item{FridgeStatus - NFridgeStatus}
-\item{FridgeStatus - PFridgeStatus}
-\item{Public - SampleNo}
-\item{Sonde - SondeTemp}
-\item{Sonde - Conductivity}
-\item{Sonde - Turbidity}
-\item{Sonde - DO-mgL}
-\item{Sonde - fDOM-QSU}
-
+\item{_id}{_id}
+\item{GSnum}{GSnum}
+\item{name}{name}
+\item{loggerID}{loggerID}
+\item{Main - Level}{Main - Level}
+\item{OPUSResults - OPUS1000 N NO3}{OPUSResults - OPUS1000 N NO3}
+\item{OPUSResults - OPUS1036 Abs210}{OPUSResults - OPUS1036 Abs210}
+\item{Nitrate - NICO RefA}{Nitrate - NICO RefA}
+\item{OPUSResults - OPUS1042 Abs254}{OPUSResults - OPUS1042 Abs254}
+\item{Nitrate - NICO RefB}{Nitrate - NICO RefB}
+\item{OPUSResults - OPUS1034 Abs360}{OPUSResults - OPUS1034 Abs360}
+\item{Nitrate - NICO RefC}{Nitrate - NICO RefC}
+\item{Nitrate - NICO RefD}{Nitrate - NICO RefD}
+\item{OPUSResults - OPUS1060 SQI}{OPUSResults - OPUS1060 SQI}
+\item{OPUSResults - OPUS1016 TSSeq}{OPUSResults - OPUS1016 TSSeq}
+\item{Public - RSSI}{Public - RSSI}
+\item{Resets - WDE}{Resets - WDE}
+\item{Public - OPUS Serial}{Public - OPUS Serial}
+\item{Public - SondePresent}{Public - SondePresent}
+\item{Public - NitratePresent}{Public - NitratePresent}
+\item{Public - ADCPPresent}{Public - ADCPPresent}
+\item{Main - LoggerBattV Min}{Main - LoggerBattV Min}
+\item{Main - PestFrV Min}{Main - PestFrV Min}
+\item{Main - PumpBattV Min}{Main - PumpBattV Min}
+\item{Public - SamplerOnOff}{Public - SamplerOnOff}
+\item{Public - SamplerState}{Public - SamplerState}
+\item{FridgeStatus - NFridgeStatus}{FridgeStatus - NFridgeStatus}
+\item{FridgeStatus - PFridgeStatus}{FridgeStatus - PFridgeStatus}
+\item{Public - SampleNo}{Public - SampleNo}
+\item{Sonde - SondeTemp}{Sonde - SondeTemp}
+\item{Sonde - Conductivity}{Sonde - Conductivity}
+\item{Sonde - Turbidity}{Sonde - Turbidity}
+\item{Sonde - DO-mgL}{Sonde - DO-mgL}
+\item{Sonde - fDOM-QSU}{Sonde - fDOM-QSU}
 }
 }
 \source{
@@ -51,6 +51,7 @@ a data frame containing 134 obs. of  56 variables
 loggerRef
 }
 \description{
+Reference table for all of WQI's location sources with Logger data
 Provides Node ID's for available real time parameters
 }
 \keyword{datasets}
