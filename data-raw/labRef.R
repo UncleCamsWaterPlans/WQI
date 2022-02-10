@@ -118,7 +118,11 @@ for (j in 1:dim(ParamList)) {
   }
 }
 
+labRef <- labRef %>%
+  add_column("GSnum" = word(labRef$name[1:dim(labRef)[1]], 1),
+             .before = "name")
 
+#usethis::use_data(labRef)
 
 #save the file for use by other apps.
 #write.csv(labRef, file = "EIO_API/OUTPUT/LABlabRef.csv")

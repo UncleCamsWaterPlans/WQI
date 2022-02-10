@@ -52,8 +52,8 @@ fDOMNames <- c("Sonde - fDOM-QSU")
 ParamList = list(LevelNames, NO3Names, ABS210Names, RefANames, ABS254Names, RefBNames, ABS360Names, RefCNames, RefDNames, SQINames, TSSeqNames,
                  LevelNames, RSSINames, WDENames, OPUSSerialNames,
                  SondePresNames, NitratePresNames, ADCPPresNames,
-                 BattNames, PestBattNames, PumpBattNames, 
-                 SamplerIONames, SamplerStateNames, nFridgeNames, pFridgeNames, SampleNumNames, 
+                 BattNames, PestBattNames, PumpBattNames,
+                 SamplerIONames, SamplerStateNames, nFridgeNames, pFridgeNames, SampleNumNames,
                  TempNames, CondNames, TurbNames, DONames,fDOMNames)
 
 
@@ -66,7 +66,7 @@ API <- GET(URL,
 Wrksp_content=fromJSON(rawToChar(API$content))
 
 # filter workspace names to that which contain the 3digit catchment code
-Wrksp_content <- Wrksp_content %>% 
+Wrksp_content <- Wrksp_content %>%
                       filter(substr(name, 1,3) <200 & substr(name, 1,3) > 100)
 
 #create a list object to store data
@@ -74,14 +74,14 @@ datalist = list()
 
 # for each workspace pull in the Node ID's
 for (i in 1:(dim(Wrksp_content)[1])) {
-  
+
   WSID <- Wrksp_content$`_id`[i]
   URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",WSID,")",sep="")
   API <- GET(URL,
                     add_headers('X-Api-Key' = APIKEY,
                                 'Content-Type' = "application/json"))
   Node_content=fromJSON(rawToChar(API$content))
-  
+
   datalist[[i]] <- Node_content # add it to your list
 }
 
@@ -89,7 +89,7 @@ for (i in 1:(dim(Wrksp_content)[1])) {
 loggerRef = do.call(rbind, datalist)
 
 #filter new dataframe to remove non-essential nodes
-loggerRef <- loggerRef %>% 
+loggerRef <- loggerRef %>%
   filter(name != "Site Management" & name != "Rain Gauges")
 
 # Drill down deeper for logger  ID's
@@ -98,28 +98,28 @@ datalist = list() #new blank list to store data
 
 # for each SITE, find the ID for the Real Time Data Folder, then find the Logger ID
 for (i in 1:(dim(loggerRef)[1])) {
-  
+
   SiteID <- loggerRef$`_id`[i]
   URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",SiteID,")",sep="")
   API <- GET(URL,
                    add_headers('X-Api-Key' = APIKEY,
                                'Content-Type' = "application/json"))
   RTD_content=fromJSON(rawToChar(API$content))
-  RTD <- RTD_content %>% 
+  RTD <- RTD_content %>%
     filter(name == "Real-time Data")
   RTD<-RTD[1,1]
-  
+
   URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",RTD,")",sep="")
   API <- GET(URL,
                      add_headers('X-Api-Key' = APIKEY,
                                  'Content-Type' = "application/json"))
   Logger_content=fromJSON(rawToChar(API$content))
-   Logger_content <- Logger_content %>% 
+   Logger_content <- Logger_content %>%
      filter(grepl('Logger',name))
      #filter(name %in% LoggerNames,.preserve = FALSE)
    LoggerID<-Logger_content[1,1]
-   
-  
+
+
   datalist[[i]] <- Logger_content # add it to your list
 }
 
@@ -138,30 +138,30 @@ for (i in 1:(dim(loggerRef)[1])) {
 # API call to extract logger parameters
 datalist = list()
 for (i in 1:(dim(loggerRef)[1])) {
-  
+
   LoggerID <- loggerRef$`loggerID`[i]
   URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",LoggerID,")",sep="")
   API <- GET(URL,
                   add_headers('X-Api-Key' = APIKEY,
                               'Content-Type' = "application/json"))
   param_content=fromJSON(rawToChar(API$content))
-  #param <- param_content %>% 
+  #param <- param_content %>%
   #   filter(name %in% LevelNames,.preserve = FALSE)
   # param<- param[1,1]
-  
-  Logger_content <- Logger_content %>% 
+
+  Logger_content <- Logger_content %>%
     filter(grepl('Logger',name))
   #filter(name %in% LoggerNames,.preserve = FALSE)
   LoggerID<-Logger_content[1,1]
-  
-  
+
+
   datalist[[i]] <- param_content # add it to your list
 }
 
 
 
 
-# Nested for loop: runs through each parameter and creates a list of the available nodes for each logger. 
+# Nested for loop: runs through each parameter and creates a list of the available nodes for each logger.
 for (j in 1:length(ParamList)) {
   Label = ParamList[[j]][1]
   loggerRef[, (Label)] <- NA
@@ -173,11 +173,13 @@ for (j in 1:length(ParamList)) {
   }
 }
 
+loggerRef <- loggerRef %>%
+  add_column("GSnum" = word(loggerRef$name[1:dim(loggerRef)[1]], 1),
+             .before = "name")
 
+#usethis::use_data(loggerRef)
 
-
-
-#save the file for use by other apps. 
+#save the file for use by other apps.
 #write.csv(loggerRef, file = "EIO_API/OUTPUT/loggerRef.csv")
 
 
