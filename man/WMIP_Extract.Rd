@@ -25,7 +25,7 @@ A data frame containing extracted WMIP data for specified gauging station/parame
 Extracts data from the Water Monitoring Information Portal (WMIP). This platform is the front end of DRDMW's Hydstra database. It contains river level, discharge, water quality and rainfall data to lsit a few. What is available for each gauging station can be seen in the WMIP platform. This should be used to determine what parameter codes can be extracted in this funciton.
 }
 \examples{
-`df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")`
+#df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")
 
 
 }

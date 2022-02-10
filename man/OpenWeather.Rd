@@ -49,6 +49,6 @@ example API :: https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={
 }
 }
 \examples{
-`dat <- OpenWeather(City = "Ayr", time = (as.integer(Sys.time())), APIKEY = "6ec4d71e6dff80bfd53c2ead82f20ef4")`
+#dat <- OpenWeather(City = "Ayr", time = (as.integer(Sys.time())), APIKEY = "XYZ")
 
 }

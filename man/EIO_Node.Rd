@@ -21,6 +21,6 @@ data frame containing returned node data
 Will extract the current value for a given NODE ID from WQI's eagle.IO instance.
 }
 \examples{
-`content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")`
+#content <- EIO_Node(APIKEY = "XYZ", param = "59cca1064f2ee90c99b94b2e")
 
 }
