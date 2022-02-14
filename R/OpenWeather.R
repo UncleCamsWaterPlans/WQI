@@ -29,7 +29,7 @@
 #'   \item hourly.weather.icon Weather icon id. How to get icons
 #' }
 #'
-#' @source url{https://openweathermap.org/}
+#' @source \url{https://openweathermap.org/}
 
 #' @param City tTe City as displayed in the cityList file extracted from the website
 #' @param APIKEY Given from the free tier account for OpenWeather
