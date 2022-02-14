@@ -4,7 +4,7 @@
 Packages <- c("httr", "jsonlite", "tidyverse")
 lapply(Packages, library, character.only=TRUE)
 
-APIKEY <- "R70p9hO2eAenXNcawRit4bcTyGDISEAWrFG8gL01"
+APIKEY <- "USERINPUT"
 
 # Contant values as per Eagle.IO nomenclature
 LoggerNames <- c("Campbell PakBus Logger", "Logger")

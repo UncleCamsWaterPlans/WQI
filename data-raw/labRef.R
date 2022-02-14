@@ -4,7 +4,7 @@
 Packages <- c("httr", "jsonlite", "tidyverse")
 lapply(Packages, library, character.only=TRUE)
 
-APIKEY <- "xSQ5EGQbuIx2fucF0wuOoUt6Q7KXCNCLE6ivgx1I"
+APIKEY <- "USERINPUT"
 
 
 

@@ -31,9 +31,9 @@
 #'
 #' @source url{https://openweathermap.org/}
 
-#' @param City == the City as displayed in the cityList file extracted from the website
-#' @param APIKEY == given from the free tier account for OpenWeather
-#' @param time == UNIX time for a given day. Free tier only supports the last 5 days
+#' @param City tTe City as displayed in the cityList file extracted from the website
+#' @param APIKEY Given from the free tier account for OpenWeather
+#' @param time UNIX time for a given day. Free tier only supports the last 5 days
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
 #'
