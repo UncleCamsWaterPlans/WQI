@@ -6,7 +6,7 @@
 #'
 #' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #' @param param A node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data (ie level/N-NO3/Turbidity).
-#' @param START Number of days to lookback
+#' @param START Date* to lookback to. Format = "YYYY-MM-DD"
 #'
 #' @examples
 #' #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
@@ -17,8 +17,7 @@
 #'
 EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
-  START <- Sys.Date() - START
-  END <- Sys.Date() + 1
+  END <- Sys.Date() + 1, "%Y%m%d"
   URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,sep = "")
 
   #API call GET
