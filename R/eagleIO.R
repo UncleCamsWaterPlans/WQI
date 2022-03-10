@@ -17,7 +17,7 @@
 #'
 EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
-  END <- Sys.Date() + 1, "%Y%m%d"
+  END <- format(Sys.Date() + 1, "%Y%m%d")
   URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,sep = "")
 
   #API call GET
