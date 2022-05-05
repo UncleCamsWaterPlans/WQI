@@ -10,6 +10,11 @@
 #'
 #' @examples
 #' #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
+#' #library(tidyverse)
+#' #reportableParamRef <- WQI::reportableParamRef
+#' #param <- reportableParamRef %>%
+#' #  filter(GSnum == '1160122')
+#' #param <- param$`N-NO3`
 #'
 #' @return tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
 #'

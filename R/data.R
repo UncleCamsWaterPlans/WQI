@@ -118,3 +118,22 @@
 #' }
 #' @source \url{https://wqi.eagle.io/}
 "loggerRef"
+
+#' Reference table for all of WQI's Reportable Parameter sources with RT data
+#' Provides Node ID's for available filtered RTD parameters.
+#' @format a data frame containing 134 obs. of  56 variables
+#' \describe{
+#'   \item{_id}{_id}
+#'   \item{GSnum}{GSnum}
+#'   \item{name}{name}
+#'   \item{ReportableParameter}{ReportableParameter}
+#'   \item{Turbidity}{Turbidity}
+#'   \item{Level}{Level}
+#'   \item{N-NO3}{N-NO3}
+#'   \item{SondeTemp}{SondeTemp}
+#'   \item{Discharge}{Discharge}
+#'   \item{Conductivity}{Conductivity}
+#'   \item{TSSeq}{TSSeq}
+#'   \item{Samples}{Samples}
+#'   }
+"reportableParamRef"
