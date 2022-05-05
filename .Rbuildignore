@@ -5,3 +5,4 @@
 ^WQI\.Rcheck$
 ^WQI.*\.tar\.gz$
 ^WQI.*\.tgz$
+^\.github$

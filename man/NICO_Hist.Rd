@@ -25,8 +25,6 @@ NICO_Hist(APIKEY, NNO3, refA, refB, refC, refD, SQI, START)
 \item{SQI}{A node ID for a given sites SQI parameter in eagle.IO.}
 
 \item{START}{Number of days to lookback}
-
-\item{TSSeq}{A node ID for a given sites TSSeq parameter in eagle.IO.}
 }
 \value{
 tibble containing returned historic data for OPUS reportable parameters and associsated spectral values, value and quality. Time as "Australia/Brisbane"

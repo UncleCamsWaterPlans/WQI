@@ -152,7 +152,6 @@ OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START) {
 #'
 #' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #' @param NNO3 A node ID for a given sites NNO3 parameter in eagle.IO.
-#' @param TSSeq A node ID for a given sites TSSeq parameter in eagle.IO.
 #' @param refA A node ID for a given sites refA parameter in eagle.IO.
 #' @param refB A node ID for a given sites refB parameter in eagle.IO.
 #' @param refC A node ID for a given sites refC parameter in eagle.IO.
