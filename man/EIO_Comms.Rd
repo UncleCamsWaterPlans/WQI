@@ -4,7 +4,7 @@
 \alias{EIO_Comms}
 \title{Extract communications information for a given logger source}
 \source{
-url{https://wqi.eagle.io/}
+\url{https://wqi.eagle.io/}
 }
 \usage{
 EIO_Comms(APIKEY, param)

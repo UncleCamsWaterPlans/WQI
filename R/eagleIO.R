@@ -24,7 +24,7 @@ EIO_Hist <- function(APIKEY, param, START) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
   START <- Sys.Date() - START
   END <- Sys.Date() + 1
-  URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,sep = "")
+  URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,"&qualityExcluded=NONE",sep = "")
 
   #API call GET
   APIData <- httr::GET(URLData,
@@ -43,6 +43,192 @@ EIO_Hist <- function(APIKEY, param, START) {
   } else ""
   if ("q" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
     Data$Quality <- Node_content[["data"]][["f"]][["0"]][["q"]]
+  } else ""
+
+  return(Data)
+}
+
+
+#' @title Extract historic OPUS data from WQI's eagle.IO instance
+#'
+#' @description Function for extracting a tibble of historic OPUS data from WQI's eagle.IO instance.
+#'
+#' @source \url{https://wqi.eagle.io/}
+#'
+#' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param NNO3 A node ID for a given sites NNO3 parameter in eagle.IO.
+#' @param TSSeq A node ID for a given sites TSSeq parameter in eagle.IO.
+#' @param abs210 A node ID for a given sites abs210 parameter in eagle.IO.
+#' @param abs254 A node ID for a given sites abs254 parameter in eagle.IO.
+#' @param abs360 A node ID for a given sites abs360 parameter in eagle.IO.
+#' @param SQI A node ID for a given sites SQI parameter in eagle.IO.
+#' @param START Number of days to lookback
+#'
+#' @examples
+#' loggerRef <- WQI::loggerRef
+#' site <- "1111019"
+#' dex <- loggerRef %>%
+#'   dplyr::filter(GSnum == site)
+#'
+#' NNO3 <- dex$`OPUSResults - OPUS1000 N NO3`
+#' TSSeq <- dex$`OPUSResults - OPUS1016 TSSeq`
+#' abs210 <- dex$`OPUSResults - OPUS1036 Abs210`
+#' abs254 <- dex$`OPUSResults - OPUS1042 Abs254`
+#' abs360 <- dex$`OPUSResults - OPUS1034 Abs360`
+#' SQI <- dex$`OPUSResults - OPUS1060 SQI`
+#'
+#' @return tibble containing returned historic data for OPUS reportable parameters and associsated spectral values, value and quality. Time as "Australia/Brisbane"
+#'
+#' @export
+#'
+#'
+#'
+
+OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START) {
+
+  START <- Sys.Date() - START
+  END <- Sys.Date() + 1
+
+  params <- paste(NNO3, TSSeq, abs210, abs254, abs360, SQI, sep = ",")
+
+  URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",params,"&startTime=",START,"&endTime=",END,"&qualityExcluded=NONE",sep = "")
+
+  #API call GET
+  APIData <- httr::GET(URLData,
+                       httr::add_headers('X-Api-Key' = APIKEY,
+                                         'Content-Type' = "application/json"))
+  Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
+
+  Data<- tibble::tibble(ts = Node_content[["data"]][["ts"]])
+  Data$ts<-as.POSIXct(Data$ts, format="%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  attr(Data$ts, "tzone") <- "Australia/Brisbane"
+
+  Data <- Data %>% tibble::add_column("N-NO3" = NA,
+                                      "N-NO3_Qual" = NA,
+                                      "TSSeq" = NA,
+                                      "TSSeq_Qual" = NA,
+                                      "abs210" = NA,
+                                      "abs254" = NA,
+                                      "abs360" = NA,
+                                      "SQI" = NA,
+                                      )
+
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$`N-NO3` <- Node_content[["data"]][["f"]][["0"]][["v"]]
+  } else ""
+  if ("q" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$`N-NO3_Qual` <- Node_content[["data"]][["f"]][["0"]][["q"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["1"]])) {
+    Data$TSSeq <- Node_content[["data"]][["f"]][["1"]][["v"]]
+  } else ""
+  if ("q" %in% colnames(Node_content[["data"]][["f"]][["1"]])) {
+    Data$TSSeq_Qual <- Node_content[["data"]][["f"]][["1"]][["q"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["2"]])) {
+    Data$abs210 <- Node_content[["data"]][["f"]][["2"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["3"]])) {
+    Data$abs254 <- Node_content[["data"]][["f"]][["3"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["4"]])) {
+    Data$abs360 <- Node_content[["data"]][["f"]][["4"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["5"]])) {
+    Data$SQI <- Node_content[["data"]][["f"]][["5"]][["v"]]
+  } else ""
+
+  return(Data)
+}
+
+
+
+
+#' @title Extract historic NICO data from WQI's eagle.IO instance
+#'
+#' @description Function for extracting a tibble of historic NICO data from WQI's eagle.IO instance.
+#'
+#' @source \url{https://wqi.eagle.io/}
+#'
+#' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
+#' @param NNO3 A node ID for a given sites NNO3 parameter in eagle.IO.
+#' @param TSSeq A node ID for a given sites TSSeq parameter in eagle.IO.
+#' @param refA A node ID for a given sites refA parameter in eagle.IO.
+#' @param refB A node ID for a given sites refB parameter in eagle.IO.
+#' @param refC A node ID for a given sites refC parameter in eagle.IO.
+#' @param refD A node ID for a given sites refD parameter in eagle.IO.
+#' @param SQI A node ID for a given sites SQI parameter in eagle.IO.
+#' @param START Number of days to lookback
+#'
+#' @examples
+#' loggerRef <- WQI::loggerRef
+#' site <- "1350053"
+#' dex <- loggerRef %>%
+#'   dplyr::filter(GSnum == site)
+#'
+#' NNO3 <- dex$`OPUSResults - OPUS1000 N NO3`
+#' refA <- dex$`Nitrate - NICO RefA`
+#' refB <- dex$`Nitrate - NICO RefB`
+#' refC <- dex$`Nitrate - NICO RefC`
+#' refD <- dex$`Nitrate - NICO RefD`
+#' SQI <- dex$`OPUSResults - OPUS1060 SQI`
+#'
+#' @return tibble containing returned historic data for OPUS reportable parameters and associsated spectral values, value and quality. Time as "Australia/Brisbane"
+#'
+#' @export
+#'
+#'
+#'
+
+
+NICO_Hist <- function(APIKEY, NNO3, refA, refB, refC, refD, SQI, START) {
+
+  START <- Sys.Date() - START
+  END <- Sys.Date() + 1
+
+  params <- paste(NNO3, refA, refB, refC, refD, SQI, sep = ",")
+
+  URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",params,"&startTime=",START,"&endTime=",END,"&qualityExcluded=NONE",sep = "")
+
+  #API call GET
+  APIData <- httr::GET(URLData,
+                       httr::add_headers('X-Api-Key' = APIKEY,
+                                         'Content-Type' = "application/json"))
+  Node_content=jsonlite::fromJSON(rawToChar(APIData$content))
+
+  Data<- tibble::tibble(ts = Node_content[["data"]][["ts"]])
+  Data$ts<-as.POSIXct(Data$ts, format="%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  attr(Data$ts, "tzone") <- "Australia/Brisbane"
+
+  Data <- Data %>% tibble::add_column("N-NO3" = NA,
+                                      "N-NO3_Qual" = NA,
+                                      "refA" = NA,
+                                      "refB" = NA,
+                                      "refC" = NA,
+                                      "refD" = NA,
+                                      "SQI" = NA,
+                                      )
+
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$`N-NO3` <- Node_content[["data"]][["f"]][["0"]][["v"]]
+  } else ""
+  if ("q" %in% colnames(Node_content[["data"]][["f"]][["0"]])) {
+    Data$`N-NO3_Qual` <- Node_content[["data"]][["f"]][["0"]][["q"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["1"]])) {
+    Data$refA <- Node_content[["data"]][["f"]][["1"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["2"]])) {
+    Data$refB <- Node_content[["data"]][["f"]][["2"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["3"]])) {
+    Data$refC <- Node_content[["data"]][["f"]][["3"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["4"]])) {
+    Data$refD <- Node_content[["data"]][["f"]][["4"]][["v"]]
+  } else ""
+  if ("v" %in% colnames(Node_content[["data"]][["f"]][["5"]])) {
+    Data$SQI <- Node_content[["data"]][["f"]][["5"]][["v"]]
   } else ""
 
   return(Data)

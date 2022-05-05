@@ -4,7 +4,7 @@
 \alias{WMIP_Extract}
 \title{Data extraction from the Water Monitoring Information portal}
 \source{
-url{https://water-monitoring.information.qld.gov.au/}
+\url{https://water-monitoring.information.qld.gov.au/}
 }
 \usage{
 WMIP_Extract(WMIPID, Vfrom, Vto, START)

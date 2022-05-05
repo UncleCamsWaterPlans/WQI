@@ -4,17 +4,17 @@
 \alias{OpenWeather}
 \title{Access to the OpenWeather API data (Free Tier)}
 \source{
-url{https://openweathermap.org/}
+\url{https://openweathermap.org/}
 }
 \usage{
 OpenWeather(City, time, APIKEY)
 }
 \arguments{
-\item{City}{== the City as displayed in the cityList file extracted from the website}
+\item{City}{tTe City as displayed in the cityList file extracted from the website}
 
-\item{time}{== UNIX time for a given day. Free tier only supports the last 5 days}
+\item{time}{UNIX time for a given day. Free tier only supports the last 5 days}
 
-\item{APIKEY}{== given from the free tier account for OpenWeather}
+\item{APIKEY}{Given from the free tier account for OpenWeather}
 }
 \value{
 data frame containing weather observation data from given city. Time as "Australia/Brisbane" (UTC+10)

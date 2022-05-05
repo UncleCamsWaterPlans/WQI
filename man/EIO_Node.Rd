@@ -4,7 +4,7 @@
 \alias{EIO_Node}
 \title{Extract node data from WQI's eagle.IO instance}
 \source{
-url{https://wqi.eagle.io/}
+\url{https://wqi.eagle.io/}
 }
 \usage{
 EIO_Node(APIKEY, param)

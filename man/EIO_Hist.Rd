@@ -4,7 +4,7 @@
 \alias{EIO_Hist}
 \title{Extract historic data from WQI's eagle.IO instance}
 \source{
-url{https://wqi.eagle.io/}
+\url{https://wqi.eagle.io/}
 }
 \usage{
 EIO_Hist(APIKEY, param, START)
@@ -24,5 +24,10 @@ Function for extracting historic data from WQI's eagle.IO instance. Requires a n
 }
 \examples{
 #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
+#library(tidyverse)
+#reportableParamRef <- WQI::reportableParamRef
+#param <- reportableParamRef \%>\%
+#  filter(GSnum == '1160122')
+#param <- param$`N-NO3`
 
 }
