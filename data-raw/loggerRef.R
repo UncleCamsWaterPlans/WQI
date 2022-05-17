@@ -92,7 +92,7 @@ loggerRef = do.call(rbind, datalist)
 
 #filter new dataframe to remove non-essential nodes
 loggerRef <- loggerRef %>%
-  filter(name != "Site Management" & name != "Rain Gauges")
+  filter(name != "Site Management" & name != "Rain Gauges" & name != "Anomaly Detection")
 
 # Drill down deeper for logger  ID's
 
@@ -179,7 +179,7 @@ loggerRef <- loggerRef %>%
   add_column("GSnum" = word(loggerRef$name[1:dim(loggerRef)[1]], 1),
              .before = "name")
 
-#usethis::use_data(loggerRef)
+#usethis::use_data(loggerRef, overwrite = TRUE)
 
 #save the file for use by other apps.
 #write.csv(loggerRef, file = "EIO_API/OUTPUT/loggerRef.csv")
