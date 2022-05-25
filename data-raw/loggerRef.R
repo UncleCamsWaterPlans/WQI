@@ -24,7 +24,7 @@ TSSeqNames <- c("OPUSResults - OPUS1016 TSSeq", "Nitrate - OPUS-TSSEQ")
 
 # General params
 LevelNames <- c("Main - Level", "Water Depth", "Level")
-RSSINames <- c("Public - RSSI", "Public - SignalStrength")
+RSSINames <- c("Main - SignalStrength", "Public - RSSI", "Public - SignalStrength")
 WDENames <- c("Resets - WDE")
 OPUSSerialNames <- c("Public - OPUS Serial", "Public - OPUS10 DeviceSerial")
 
