@@ -40,7 +40,7 @@ labRef = do.call(rbind, datalist)
 
 #filter new dataframe to remove non-essential nodes
 labRef <- labRef %>%
-  filter(name != "Site Management" & name != "Rain Gauges")
+  filter(name != "Site Management" & name != "Rain Gauges" & name != "Anomaly Detection")
 
 # Drill down deeper for logger  ID's
 
@@ -100,7 +100,7 @@ for (i in 1:(dim(labRef)[1])) {
 ParamList = datalist[[1]]
 
 #worth filtering to interesting values here
-ParamList$test <- !grepl("[0-9]", ParamList$name)
+ParamList$test <- !grepl("Qual Code", ParamList$name)
 ParamList <- ParamList %>% filter(test == TRUE)
 
 
@@ -122,7 +122,7 @@ labRef <- labRef %>%
   add_column("GSnum" = word(labRef$name[1:dim(labRef)[1]], 1),
              .before = "name")
 
-#usethis::use_data(labRef)
+#usethis::use_data(labRef, overwrite = TRUE)
 
 #save the file for use by other apps.
 #write.csv(labRef, file = "EIO_API/OUTPUT/LABlabRef.csv")
