@@ -23,7 +23,7 @@ SQINames <- c("OPUSResults - OPUS1060 SQI", "Nitrate - OPUS-SQI", "Nitrate - NIC
 TSSeqNames <- c("OPUSResults - OPUS1016 TSSeq", "Nitrate - OPUS-TSSEQ")
 
 # General params
-LevelNames <- c("Main - Level", "Water Depth", "Level")
+LevelNames <- c("Main - Level", "Water Depth", "Level", "Height")
 RSSINames <- c("Main - SignalStrength", "Public - RSSI", "Public - SignalStrength")
 WDENames <- c("Resets - WDE")
 OPUSSerialNames <- c("Public - OPUS Serial", "Public - OPUS10 DeviceSerial")
