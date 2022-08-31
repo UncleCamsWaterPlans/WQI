@@ -22,7 +22,8 @@ WMIP_Extract <- function(WMIPID, Vfrom, Vto, START){
   WMIP_URL <- paste("https://water-monitoring.information.qld.gov.au/cgi/webservice.pl?function=get_ts_traces&site_list=",WMIPID,"&datasource=AT&varfrom=",Vfrom,"&varto=",Vto,"&start_time=",START,"&end_time=",END,"&data_type=mean&interval=hour&multiplier=1&format=csv")
   WMIP_URL <- gsub(" ", "", WMIP_URL, fixed = TRUE)
 
-  WMIPData <- readr::read_csv(url(WMIP_URL))
+  API <- httr::GET(WMIP_URL, timeout = 30)
+  WMIPData <- readr::read_csv(rawToChar(API$content))
 
   WMIPData$time <- as.POSIXct(sprintf("%1.0f", WMIPData$time), format="%Y%m%d%H%M%S", origin = "1970-01-01")
   return(WMIPData)
