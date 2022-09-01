@@ -7,14 +7,21 @@
 \url{https://wqi.eagle.io/}
 }
 \usage{
-EIO_Hist(APIKEY, param, START)
+EIO_Hist(
+  APIKEY,
+  param,
+  START,
+  END = format(Sys.time() + 86400, "\%Y-\%m-\%dT\%H:\%M:\%SZ")
+)
 }
 \arguments{
 \item{APIKEY}{This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance}
 
 \item{param}{A node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data (ie level/N-NO3/Turbidity).}
 
-\item{START}{Number of days to lookback}
+\item{START}{DateTime to start the historic period of capture. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00}
+
+\item{END}{DateTime to end the historic period of capture. Defaults to the current system time + one day. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00}
 }
 \value{
 tibble containing returned historic data, value and quality. Time as "Australia/Brisbane"
@@ -23,6 +30,8 @@ tibble containing returned historic data, value and quality. Time as "Australia/
 Function for extracting historic data from WQI's eagle.IO instance. Requires a node ID that has connection status information to return (ie. Campbell pakbus logger)
 }
 \examples{
+#td <- 86400
+#START <- format(Sys.time() -30*td, "\%Y-\%m-\%dT\%H:\%M:\%SZ") # note this will be in UTC
 #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
 #library(tidyverse)
 #reportableParamRef <- WQI::reportableParamRef

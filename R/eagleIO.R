@@ -6,9 +6,12 @@
 #'
 #' @param APIKEY This is required for all functions and can be generated from the account settings in WQI's Eagle.IO instance
 #' @param param A node ID of a given parameter in eagle.IO, noting historic will only work with nodes that contain historic data (ie level/N-NO3/Turbidity).
-#' @param START Number of days to lookback
+#' @param START DateTime to start the historic period of capture. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
+#' @param END DateTime to end the historic period of capture. Defaults to the current system time + one day. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
 #'
 #' @examples
+#' #td <- 86400
+#' #START <- format(Sys.time() -30*td, "%Y-%m-%dT%H:%M:%SZ") # note this will be in UTC
 #' #content <- EIO_Hist(APIKEY = "XYZ", param = "5903e538bd10c2fa0ce50648", START = 1)
 #' #library(tidyverse)
 #' #reportableParamRef <- WQI::reportableParamRef
@@ -20,10 +23,10 @@
 #'
 #' @export
 #'
-EIO_Hist <- function(APIKEY, param, START) {
+
+EIO_Hist <- function(APIKEY, param, START, END = format(Sys.time() + 86400, "%Y-%m-%dT%H:%M:%SZ")) {
   #param -- MUST be a node ID corresponding to a historic data source (ie level/N-NO3/Turbidity)
-  START <- Sys.Date() - START
-  END <- Sys.Date() + 1
+
   URLData <- paste("https://api.eagle.io/api/v1/historic/?params=",param,"&startTime=",START,"&endTime=",END,"&qualityExcluded=NONE",sep = "")
 
   #API call GET
@@ -62,7 +65,8 @@ EIO_Hist <- function(APIKEY, param, START) {
 #' @param abs254 A node ID for a given sites abs254 parameter in eagle.IO.
 #' @param abs360 A node ID for a given sites abs360 parameter in eagle.IO.
 #' @param SQI A node ID for a given sites SQI parameter in eagle.IO.
-#' @param START Number of days to lookback
+#' @param START DateTime to start the historic period of capture. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
+#' @param END DateTime to end the historic period of capture. Defaults to the current system time + one day. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
 #'
 #' @examples
 #' loggerRef <- WQI::loggerRef
@@ -84,10 +88,7 @@ EIO_Hist <- function(APIKEY, param, START) {
 #'
 #'
 
-OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START) {
-
-  START <- Sys.Date() - START
-  END <- Sys.Date() + 1
+OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START, END = format(Sys.time() + 86400, "%Y-%m-%dT%H:%M:%SZ")) {
 
   params <- paste(NNO3, TSSeq, abs210, abs254, abs360, SQI, sep = ",")
 
@@ -159,7 +160,8 @@ OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START) {
 #' @param refC A node ID for a given sites refC parameter in eagle.IO.
 #' @param refD A node ID for a given sites refD parameter in eagle.IO.
 #' @param SQI A node ID for a given sites SQI parameter in eagle.IO.
-#' @param START Number of days to lookback
+#' @param START DateTime to start the historic period of capture. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
+#' @param END DateTime to end the historic period of capture. Defaults to the current system time + one day. Format needs to be in ISO8601, see: 2014-10-09T22:38:10Z || 2014-10-09T22:38:10.000Z || 2014-10-09T20:38:10+0200 || 2014-10-09T20:38:10+02:00
 #'
 #' @examples
 #' loggerRef <- WQI::loggerRef
@@ -182,10 +184,7 @@ OPUS_Hist <- function(APIKEY, NNO3, TSSeq, abs210, abs254, abs360, SQI, START) {
 #'
 
 
-NICO_Hist <- function(APIKEY, NNO3, refA, refB, refC, refD, SQI, START) {
-
-  START <- Sys.Date() - START
-  END <- Sys.Date() + 1
+NICO_Hist <- function(APIKEY, NNO3, refA, refB, refC, refD, SQI, START, END = format(Sys.time() + 86400, "%Y-%m-%dT%H:%M:%SZ")) {
 
   params <- paste(NNO3, refA, refB, refC, refD, SQI, sep = ",")
 
