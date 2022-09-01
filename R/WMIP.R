@@ -6,20 +6,33 @@
 #' @source \url{https://water-monitoring.information.qld.gov.au/}
 
 #' @param WMIPID A gauging station number as defined in the WMIP platform.
-#' @param Vfrom Refers to parameter codes (100.00 = level)
-#' @param Vto Allows you to leverage the platform to convert level to discharge (ie. Vfrom = 100.00 level , Vto = 140.00 devtoolsdischarge)
 #' @param START Date* to lookback to. Format = "YYYYMMDD"
+#' @param param A string referring to the reported variable from the desired site. Refer to \url{https://water-monitoring.information.qld.gov.au/} for information regarding the desired site and what data is available per the desired time period. This parameter defaults to "Level". Options are: level/discharge/rainfall/temperature/conductivity/pH/turbidity
+#' @param datasource A string referring to the desired data source for the data to be extracted from. Defaults to "AT" which is the Archive-telemetered composite source. Options are: A/TE/AT/ATQ
+#' @param END Date* to end the extraction period on. Format = "YYYYMMDD". Defaults to the system date plus one day.
 #'
 #' @examples
-#' #df_test <- WMIP_Extract("112004A", Vfrom = "100.00", Vto = "100.00", START = "20211201")
+#' #df_test <- WMIP_Extract("110001D", "20220801", "temperature")
 #'
 #'
 #' @return A data frame containing extracted WMIP data for specified gauging station/parameter.
 
 #' @export
-WMIP_Extract <- function(WMIPID, Vfrom, Vto, START){
-  END <- format(Sys.Date() + 1, "%Y%m%d")
-  WMIP_URL <- paste("https://water-monitoring.information.qld.gov.au/cgi/webservice.pl?function=get_ts_traces&site_list=",WMIPID,"&datasource=AT&varfrom=",Vfrom,"&varto=",Vto,"&start_time=",START,"&end_time=",END,"&data_type=mean&interval=hour&multiplier=1&format=csv")
+
+WMIP_Extract <- function(WMIPID, START, param = "level", datasource = "AT", END = format(Sys.Date() + 1, "%Y%m%d")){
+
+  param <- dplyr::case_when(
+    param == "level" ~ "varfrom=100.00&varto=100.00",
+    param == "discharge" ~ "varfrom=100.00&varto=140.00",
+    param == "rainfall" ~ "varfrom=10.00&varto=10.00",
+    param == "temperature" ~ "varfrom=2080.00&varto=2080.00",
+    param == "conductivity" ~ "varfrom=2010.00&varto=2010.00",
+    param == "pH" ~ "varfrom=2100.00&varto=2100.00",
+    param == "turbidity" ~ "varfrom=2030.00&varto=2030.00"
+  )
+
+
+  WMIP_URL <- paste("https://water-monitoring.information.qld.gov.au/cgi/webservice.pl?function=get_ts_traces&site_list=",WMIPID,"&datasource=",datasource,"&",param,"&start_time=",START,"&end_time=",END,"&data_type=mean&interval=hour&multiplier=1&format=csv")
   WMIP_URL <- gsub(" ", "", WMIP_URL, fixed = TRUE)
 
   API <- httr::GET(WMIP_URL, timeout = 30)
