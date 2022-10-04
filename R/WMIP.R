@@ -38,7 +38,19 @@ WMIP_Extract <- function(WMIPID, START, param = "level", datasource = "AT", END 
   API <- httr::GET(WMIP_URL, timeout = 30)
   WMIPData <- readr::read_csv(rawToChar(API$content))
 
-  WMIPData$time <- as.POSIXct(sprintf("%1.0f", WMIPData$time), format="%Y%m%d%H%M%S", origin = "1970-01-01")
+  if (grepl("error", names(WMIPData)[1])) {
+    WMIPData <- tibble::tibble("site" = WMIPID,
+                               "varname" = param,
+                               "var" = "error",
+                               "time" = NA,
+                                "value" = NA,
+                                "quality" = NA,
+                                )
+  } else {
+    WMIPData$time <- as.POSIXct(sprintf("%1.0f", WMIPData$time), format="%Y%m%d%H%M%S", origin = "1970-01-01")
+  }
+
+
   return(WMIPData)
 }
 
