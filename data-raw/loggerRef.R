@@ -11,25 +11,62 @@ APIKEY <- Sys.getenv("EIO_KEY")
 # Contant values as per Eagle.IO nomenclature
 LoggerNames <- c("Campbell PakBus Logger", "Logger")
 #OPUS/NICO params
-NO3Names <- c("OPUSResults - OPUS1000 N NO3", "Nitrate - OPUS-NNO3", "Nitrate - NICO NNO3", "Nitrate - OPUS NNO3")
-ABS210Names <- c("OPUSResults - OPUS1036 Abs210", "Nitrate - OPUS-ABS210", "Nitrate - OPUS ABS210")
-RefANames <- c("Nitrate - NICO RefA")
-ABS254Names <- c("OPUSResults - OPUS1042 Abs254","Nitrate - OPUS-ABS254", "Nitrate - OPUS ABS254")
-RefBNames <- c("Nitrate - NICO RefB")
-ABS360Names <- c("OPUSResults - OPUS1034 Abs360", "Nitrate - OPUS-ABS360", "Nitrate - OPUS ABS360")
-RefCNames <- c("Nitrate - NICO RefC")
-RefDNames <- c("Nitrate - NICO RefD")
-SQINames <- c("OPUSResults - OPUS1060 SQI", "Nitrate - OPUS-SQI", "Nitrate - NICO SQI", "Nitrate - OPUS SQI")
-TSSeqNames <- c("OPUSResults - OPUS1016 TSSeq", "Nitrate - OPUS-TSSEQ", "Nitrate - OPUS TSSEQ")
+NO3Names <-
+  c(
+    "OPUSResults - OPUS1000 N NO3",
+    "Nitrate - OPUS-NNO3",
+    "Nitrate - OPUS NNO3",
+    "Nitrate - NICO NNO3",
+    "Nitrate - NICO-NNO3"
+  )
+ABS210Names <-
+  c("OPUSResults - OPUS1036 Abs210",
+    "Nitrate - OPUS-ABS210",
+    "Nitrate - OPUS ABS210")
+RefANames <- c("Nitrate - NICO RefA", "Nitrate - NICO-RefA")
+ABS254Names <-
+  c("OPUSResults - OPUS1042 Abs254",
+    "Nitrate - OPUS-ABS254",
+    "Nitrate - OPUS ABS254")
+RefBNames <- c("Nitrate - NICO RefB", "Nitrate - NICO-RefB")
+ABS360Names <-
+  c("OPUSResults - OPUS1034 Abs360",
+    "Nitrate - OPUS-ABS360",
+    "Nitrate - OPUS ABS360")
+RefCNames <- c("Nitrate - NICO RefC", "Nitrate - NICO-RefC")
+RefDNames <- c("Nitrate - NICO RefD", "Nitrate - NICO-RefD")
+SQINames <-
+  c(
+    "OPUSResults - OPUS1060 SQI",
+    "Nitrate - OPUS-SQI",
+    "Nitrate - OPUS SQI",
+    "Nitrate - NICO SQI",
+    "Nitrate - NICO-SQI"
+  )
+TSSeqNames <-
+  c("OPUSResults - OPUS1016 TSSeq",
+    "Nitrate - OPUS-TSSEQ",
+    "Nitrate - OPUS TSSEQ")
 
 # General params
 LevelNames <- c("Main - Level", "Water Depth", "Level", "Height")
-RSSINames <- c("Main - SignalStrength", "Public - RSSI", "Public - SignalStrength")
+RSSINames <-
+  c("Main - SignalStrength",
+    "Public - RSSI",
+    "Public - SignalStrength")
 WDENames <- c("Resets - WDE")
-OPUSSerialNames <- c("Public - OPUS Serial", "Public - OPUS10 DeviceSerial", "Nitrate - OPUS Serial")
+OPUSSerialNames <-
+  c(
+    "Public - OPUS Serial",
+    "Public - OPUS10 DeviceSerial",
+    "Nitrate - OPUS Serial",
+    "Nitrate - OPUS-Serial",
+    "Nitrate - NICO Serial"
+  )
 
 SondePresNames <- c("Public - SondePresent")
-NitratePresNames <- c("Public - NitratePresent", "Public - NO3Present")
+NitratePresNames <-
+  c("Public - NitratePresent", "Public - NO3Present")
 ADCPPresNames <- c("Public - ADCPPresent")
 
 #Batterys
@@ -40,9 +77,20 @@ PumpBattNames <- c("Main - PumpBattV Min")
 #Sampler params
 SamplerIONames <- c("Public - SamplerOnOff")
 SamplerStateNames <- c("Public - SamplerState")
-nFridgeNames <- c("FridgeStatus - NFridgeStatus", "FridgeStatus - NFridgeOnOff", "Public - Sampler1Installed", "FridgeStatus - FridgeOnOff")
-pFridgeNames <- c("FridgeStatus - PFridgeStatus", "FridgeStatus - NFridgeOnOff", "Public - Sampler2Installed")
-SampleNumNames <-c("Public - SampleNo", "Sampler1 - Sampler1Count")
+nFridgeNames <-
+  c(
+    "FridgeStatus - NFridgeStatus",
+    "FridgeStatus - NFridgeOnOff",
+    "Public - Sampler1Installed",
+    "FridgeStatus - FridgeOnOff"
+  )
+pFridgeNames <-
+  c(
+    "FridgeStatus - PFridgeStatus",
+    "FridgeStatus - NFridgeOnOff",
+    "Public - Sampler2Installed"
+  )
+SampleNumNames <- c("Public - SampleNo", "Sampler1 - Sampler1Count")
 
 #Sonde Params
 TempNames <- c("Sonde - SondeTemp")
@@ -51,12 +99,40 @@ TurbNames <- c("Sonde - Turbidity")
 DONames <- c("Sonde - DO-mgL")
 fDOMNames <- c("Sonde - fDOM-QSU")
 
-ParamList = list(LevelNames, NO3Names, ABS210Names, RefANames, ABS254Names, RefBNames, ABS360Names, RefCNames, RefDNames, SQINames, TSSeqNames,
-                 LevelNames, RSSINames, WDENames, OPUSSerialNames,
-                 SondePresNames, NitratePresNames, ADCPPresNames,
-                 BattNames, PestBattNames, PumpBattNames,
-                 SamplerIONames, SamplerStateNames, nFridgeNames, pFridgeNames, SampleNumNames,
-                 TempNames, CondNames, TurbNames, DONames,fDOMNames)
+
+ParamList = list(
+  LevelNames,
+  NO3Names,
+  ABS210Names,
+  RefANames,
+  ABS254Names,
+  RefBNames,
+  ABS360Names,
+  RefCNames,
+  RefDNames,
+  SQINames,
+  TSSeqNames,
+  LevelNames,
+  RSSINames,
+  WDENames,
+  OPUSSerialNames,
+  SondePresNames,
+  NitratePresNames,
+  ADCPPresNames,
+  BattNames,
+  PestBattNames,
+  PumpBattNames,
+  SamplerIONames,
+  SamplerStateNames,
+  nFridgeNames,
+  pFridgeNames,
+  SampleNumNames,
+  TempNames,
+  CondNames,
+  TurbNames,
+  DONames,
+  fDOMNames
+)
 
 
 
