@@ -5,8 +5,9 @@ Packages <- c("httr", "jsonlite", "tidyverse")
 lapply(Packages, library, character.only=TRUE)
 
 
-APIKEY <- Sys.getenv("EIO_KEY")
+APIKEY <- keyring::key_get("EIO_KEY")
 
+ignore <- c("Site Management", "Rain Gauges", "Anomaly Detection", "folder", "Folder")
 
 # Contant values as per Eagle.IO nomenclature
 LoggerNames <- c("Campbell PakBus Logger", "Logger")
@@ -50,6 +51,7 @@ TSSeqNames <-
 
 # General params
 LevelNames <- c("Main - Level", "Water Depth", "Level", "Height")
+
 RSSINames <-
   c("Main - SignalStrength",
     "Public - RSSI",
@@ -168,7 +170,7 @@ loggerRef = do.call(rbind, datalist)
 
 #filter new dataframe to remove non-essential nodes
 loggerRef <- loggerRef %>%
-  filter(name != "Site Management" & name != "Rain Gauges" & name != "Anomaly Detection")
+  filter(!(name %in% ignore))
 
 # Drill down deeper for logger  ID's
 
@@ -176,26 +178,37 @@ datalist = list() #new blank list to store data
 
 # for each SITE, find the ID for the Real Time Data Folder, then find the Logger ID
 for (i in 1:(dim(loggerRef)[1])) {
-
   SiteID <- loggerRef$`_id`[i]
-  URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",SiteID,")",sep="")
+  URL <-
+    paste(
+      "https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",
+      SiteID,
+      ")",
+      sep = ""
+    )
   API <- GET(URL,
-                   add_headers('X-Api-Key' = APIKEY,
-                               'Content-Type' = "application/json"))
-  RTD_content=fromJSON(rawToChar(API$content))
+             add_headers('X-Api-Key' = APIKEY,
+                         'Content-Type' = "application/json"))
+  RTD_content = fromJSON(rawToChar(API$content))
   RTD <- RTD_content %>%
     filter(name == "Real-time Data")
-  RTD<-RTD[1,1]
+  RTD <- RTD[1, 1]
 
-  URL <- paste("https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",RTD,")",sep="")
+  URL <-
+    paste(
+      "https://api.eagle.io/api/v1/nodes/?attr=_id,name&filter=parentId($eq:",
+      RTD,
+      ")",
+      sep = ""
+    )
   API <- GET(URL,
-                     add_headers('X-Api-Key' = APIKEY,
-                                 'Content-Type' = "application/json"))
-  Logger_content=fromJSON(rawToChar(API$content))
-   Logger_content <- Logger_content %>%
-     filter(grepl('Logger',name))
-     #filter(name %in% LoggerNames,.preserve = FALSE)
-   LoggerID<-Logger_content[1,1]
+             add_headers('X-Api-Key' = APIKEY,
+                         'Content-Type' = "application/json"))
+  Logger_content = fromJSON(rawToChar(API$content))
+  Logger_content <- Logger_content %>%
+    filter(grepl('Logger', name))
+  #filter(name %in% LoggerNames,.preserve = FALSE)
+  LoggerID <- Logger_content[1, 1]
 
 
   datalist[[i]] <- Logger_content # add it to your list
@@ -255,7 +268,7 @@ loggerRef <- loggerRef %>%
   add_column("GSnum" = word(loggerRef$name[1:dim(loggerRef)[1]], 1),
              .before = "name")
 
-#usethis::use_data(loggerRef, overwrite = TRUE)
+usethis::use_data(loggerRef, overwrite = TRUE)
 
 #save the file for use by other apps.
 #write.csv(loggerRef, file = "EIO_API/OUTPUT/loggerRef.csv")
