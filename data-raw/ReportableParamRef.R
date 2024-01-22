@@ -4,7 +4,7 @@
 Packages <- c("httr", "jsonlite", "tidyverse")
 lapply(Packages, library, character.only=TRUE)
 
-APIKEY <- Sys.getenv("EIO_KEY")
+APIKEY <- keyring::key_get("EIO_KEY")
 
 # API to pull in a node list ####
 URL<-paste("https://api.eagle.io/api/v1/nodes?attr=_id,name&filter=_class($eq:io.eagle.models.node.Workspace)",sep="")
